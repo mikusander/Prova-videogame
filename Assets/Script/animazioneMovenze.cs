@@ -12,7 +12,7 @@ public class animazioneMovenze : MonoBehaviour
     private int frameGiustoSinistra = 0;
     private Vector3 previousPosition;  // La posizione del frame precedente
     private PlayerMovement2D movement;
-    private string lastKeycode;
+    public string lastKeycode;
 
     void Start()
     {
@@ -47,6 +47,11 @@ public class animazioneMovenze : MonoBehaviour
         else if (!Input.anyKey && lastKeycode == "A" && movement.isGrounded)
         {
             spriteRenderer.sprite = characterSprites[6];
+        }
+        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
+            lastKeycode = "W";
+            spriteRenderer.sprite = characterSprites[0];
         }
         // Controlla se viene premuto il tasto "D" o la freccia destra
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))

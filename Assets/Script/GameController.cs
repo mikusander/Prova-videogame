@@ -18,10 +18,10 @@ public class GameController : MonoBehaviour
     void Update()
     {
         spawnTimer += Time.deltaTime;
-        if(spawnTimer >= spawnRate)
+        if(spawnTimer >= spawnRate && !gameover)
         {
             spawnTimer -= spawnRate;
-            Vector2 spawnPos = new Vector2(Random.Range(0f, 4f), 5.5f);
+            Vector2 spawnPos = new Vector2(0, 5.5f);
             Instantiate(Enemy, spawnPos, Quaternion.identity);
         }
     }

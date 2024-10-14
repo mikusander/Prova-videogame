@@ -8,13 +8,20 @@ public class AutoMoveBounceMultiAxis : MonoBehaviour
     private Vector3 direction = new Vector3(1, 0, 0); // Direzione iniziale (X e Z)
     private Camera mainCamera;
     public float targetX = 2.6f; // Posizione target (sia positiva che negativa)
+    public Sprite[] characterSprites; // Array di sprite per il personaggio
+    private SpriteRenderer spriteRenderer; // Componente SpriteRenderer del personaggio
+    public float explosionDuration = 0.01f;
+    private Rigidbody2D rb;
 
     void Start()
     {
-        if((Random.Range(0, 2) == 0))
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if ((Random.Range(0, 2) == 0))
         {
             direction.x = -direction.x;
         }
+        spriteRenderer.sprite = characterSprites[0];
     }
 
     void Update()
@@ -36,5 +43,20 @@ public class AutoMoveBounceMultiAxis : MonoBehaviour
         {
             direction.x = -direction.x;
         }
+        else if (collision.gameObject.tag == "proiettile")
+        {
+            // Imposta la velocità del Rigidbody a zero
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.isKinematic = true;  // Rende il Rigidbody kinematic per bloccare il movimento
+            StartCoroutine(DeathAndDestroy());
+        }
+    }
+    IEnumerator DeathAndDestroy()
+    {
+        Punti.punteggio += 1;
+        spriteRenderer.sprite = characterSprites[1];
+        yield return new WaitForSeconds(explosionDuration);
+        Destroy(gameObject);
     }
 }

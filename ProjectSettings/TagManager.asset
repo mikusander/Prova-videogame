@@ -7,6 +7,7 @@ TagManager:
   - Personaggio
   - Platform
   - Enemy
+  - proiettile
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Platform
   - Personaggio
   - ground
-  - 
-  - 
+  - Proiettile
+  - Enemy
   - 
   - 
   - 
